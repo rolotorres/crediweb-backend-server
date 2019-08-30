@@ -26,9 +26,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Importamos las rutas
 const appRoutes = require('./server/routes/app');
+const rolRoutes = require('./server/routes/roles');
+const fajaRoutes = require('./server/routes/fajas');
+const fileRoutes = require('./server/routes/files');
+const clitype = require('./server/routes/clienTypes');
+const dptoRoutes = require('./server/routes/deparments');
+const comtypeRoutes = require('./server/routes/companiesTypes');
 
 
 // Rutas
+app.use('/comptype', comtypeRoutes);
+app.use('/department', dptoRoutes);
+app.use('/clitype', clitype);
+app.use('/file', fileRoutes);
+app.use('/faja', fajaRoutes);
+app.use('/rol', rolRoutes);
 app.use('/', appRoutes);
 
 
