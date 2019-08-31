@@ -29,20 +29,29 @@ const appRoutes = require('./server/routes/app');
 const rolRoutes = require('./server/routes/roles');
 const fajaRoutes = require('./server/routes/fajas');
 const fileRoutes = require('./server/routes/files');
-const clitype = require('./server/routes/clienTypes');
+const cityRoutes = require('./server/routes/cities');
+const usersRoutes = require('./server/routes/users');
+const sucRoutes = require('./server/routes/sucursales');
 const dptoRoutes = require('./server/routes/deparments');
+const clientRoutes = require('./server/routes/clientData');
+const clitypeRoutes = require('./server/routes/clienTypes');
+const comdataRoutes = require('./server/routes/companiesData');
 const comtypeRoutes = require('./server/routes/companiesTypes');
 
 
 // Rutas
 app.use('/comptype', comtypeRoutes);
+app.use('/compdata', comdataRoutes);
 app.use('/department', dptoRoutes);
-app.use('/clitype', clitype);
+app.use('/clitype', clitypeRoutes);
+app.use('/clidata', clientRoutes);
+app.use('/sucursal', sucRoutes);
+app.use('/users', usersRoutes);
+app.use('/city', cityRoutes);
 app.use('/file', fileRoutes);
 app.use('/faja', fajaRoutes);
 app.use('/rol', rolRoutes);
 app.use('/', appRoutes);
-
 
 // Inicializamos el Socket.IO
 let io = socketIO(server);

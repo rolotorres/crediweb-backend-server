@@ -1,4 +1,4 @@
-/* CREATE TABLE roles(
+ CREATE TABLE roles(
 roleId SERIAL,
 roleType VARCHAR(10) NOT NULL,
 description VARCHAR(100) NOT NULL,
@@ -6,52 +6,52 @@ active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT role_PK PRIMARY KEY (roleId)
-); */
+);
 
-/* CREATE TABLE deparments(
+CREATE TABLE deparments(
 dptoId SERIAL,
 dptoName VARCHAR(15) NOT NULL,
 active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT deparment_PK PRIMARY KEY (dptoId)
-); */
+);
 
-/* CREATE TABLE companies_types(
+CREATE TABLE companies_types(
 compTypeId SERIAL,
 description VARCHAR(30) NOT NULL,
 active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT compType_PK PRIMARY KEY (compTypeId)
-); */
+);
 
-/* CREATE TABLE fajas(
+CREATE TABLE fajas(
 fajaId SERIAL,
 description char(1) NOT NULL,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT faja_PK PRIMARY KEY (fajaId),
 CONSTRAINT desc_CHK CHECK (description ~ '^[^0-9]*$')
-); */
+);
 
-/* CREATE TABLE files(
+CREATE TABLE files(
 fileId SERIAL,
 fileName VARCHAR(50) NOT NULL,
 active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT file_PK PRIMARY KEY (fileId)
-); */
+);
 
-/* CREATE TABLE client_types(
+CREATE TABLE client_types(
 clientTypeId SERIAL,
 description VARCHAR(20),
 active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT clientType_PK PRIMARY KEY (clientTypeId)
-); */
+);
 
 CREATE TABLE cities(
 cityId SERIAL,
@@ -132,10 +132,12 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT userId_PK PRIMARY KEY (userId),
 CONSTRAINT roleId_FK FOREIGN KEY (roleId) REFERENCES roles(roleId),
 CONSTRAINT clientId_FK FOREIGN KEY (clientId) REFERENCES client_data(clientId),
-CONSTRAINT sucId_FK FOREIGN KEY (sucursalId) REFERENCES sucursales(sucursalId)
+CONSTRAINT sucId_FK FOREIGN KEY (sucursalId) REFERENCES sucursales(sucursalId),
+CONSTRAINT usermail_UC UNIQUE (usermail),
+CONSTRAINT alias_UC UNIQUE (alias),
 );
 
-CREATE TABLE client_work(
+/* CREATE TABLE client_work(
 cliWorkId SERIAL,
 clientId INTEGER NOT NULL,
 workplace VARCHAR(60) NOT NULL,
@@ -149,4 +151,4 @@ lat VARCHAR(50) DEFAULT NULL,
 lng VARCHAR(50) DEFAULT NULL,
 createdAt TIMESTAMP WITH TIME ZONE,
 updatedAt TIMESTAMP WITH TIME ZONE,	
-);
+); */
