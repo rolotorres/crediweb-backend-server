@@ -35,14 +35,18 @@ const sucRoutes = require('./server/routes/sucursales');
 const dptoRoutes = require('./server/routes/deparments');
 const clientRoutes = require('./server/routes/clientData');
 const clitypeRoutes = require('./server/routes/clienTypes');
+const cliworkRoutes = require('./server/routes/clientWork');
+const creditypeRoutes = require('./server/routes/crediType');
 const comdataRoutes = require('./server/routes/companiesData');
 const comtypeRoutes = require('./server/routes/companiesTypes');
 
 
 // Rutas
+app.use('/creditype', creditypeRoutes);
 app.use('/comptype', comtypeRoutes);
 app.use('/compdata', comdataRoutes);
 app.use('/department', dptoRoutes);
+app.use('/cliwork', cliworkRoutes);
 app.use('/clitype', clitypeRoutes);
 app.use('/clidata', clientRoutes);
 app.use('/sucursal', sucRoutes);

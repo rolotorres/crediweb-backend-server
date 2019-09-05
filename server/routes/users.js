@@ -7,6 +7,8 @@ app.get('/', userController.getAll);
 
 app.post('/', userController.create);
 
+app.post('/login', userController.login);
+
 app.put('/:id', userController.update);
 
 app.delete('/:id', userController.deleted);

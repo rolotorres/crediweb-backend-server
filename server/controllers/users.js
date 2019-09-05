@@ -1,4 +1,5 @@
 const users = require('../models').user;
+const jwt = require('../services/jwt');
 
 // Obtenemos todos los usuarios
 function getAll(req, res) {
@@ -87,13 +88,42 @@ function deleted(req, res) {
     });
 }
 
+// Función login
+function login(req, res) {
+    users.findOne({
+        where: {
+            usermail: req.body.usermail,
+            pasword: req.body.pasword
+        }
+    }).then(user => {
+        if (user) {
+            return res.status(200).json({
+                ok: true,
+                user,
+                token: jwt.createToken(user)
+            })
+        } else {
+            return res.status(401).json({
+                ok: false,
+                message: "El correo o la clave no coinciden"
+            })
+        }
+    }).catch(err => {
+        return res.status(500).json({
+            ok: false,
+            message: "Ocurrio un error buscando el usuario",
+            err
+        });
+    })
+}
+
 module.exports = {
     getAll,
     create,
     update,
     deleted,
     // getOne,
-    // login,
+    login,
     // avatar,
     // getAvatar
 }
