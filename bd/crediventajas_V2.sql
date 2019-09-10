@@ -1,4 +1,4 @@
-CREATE TABLE roles(
+CREATE TABLE rol(
 roleId SERIAL,
 roleType VARCHAR(10) NOT NULL,
 description VARCHAR(100) NOT NULL,
@@ -8,7 +8,7 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT role_PK PRIMARY KEY (roleId)
 );
 
-CREATE TABLE deparments(
+CREATE TABLE departamento(
 dptoId SERIAL,
 dptoName VARCHAR(15) NOT NULL,
 active BOOLEAN DEFAULT TRUE,
@@ -17,7 +17,7 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT deparment_PK PRIMARY KEY (dptoId)
 );
 
-CREATE TABLE commercial_references(
+CREATE TABLE referencia_comercial(
 comRefId SERIAL,
 name VARCHAR(50) NOT NULL,
 phone VARCHAR(30) NOT NULL,
@@ -27,7 +27,7 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT comRef_PK PRIMARY KEY (comRefId)
 );
 
-CREATE TABLE requirements(
+CREATE TABLE requisito(
 requireId SERIAL,
 description VARCHAR(100) NOT NULL,
 createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -35,7 +35,7 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT require_PK PRIMARY KEY (requireId)
 );
 
-CREATE TABLE credit_type(
+CREATE TABLE tipo_credito(
 crediTypeId SERIAL,
 description VARCHAR(100),
 active BOOLEAN DEFAULT TRUE,
@@ -52,13 +52,38 @@ updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT amortizacion_PK PRIMARY KEY(amortizacionId)
 );
 
-CREATE TABLE client_types(
+CREATE TABLE tipo_cliente(
 clientTypeId SERIAL,
 description VARCHAR(20),
 active BOOLEAN DEFAULT TRUE,
 createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 updatedAt TIMESTAMP WITH TIME ZONE,
 CONSTRAINT clientType_PK PRIMARY KEY (clientTypeId)
+);
+CREATE TABLE ciudad(
+cityId SERIAL,
+dptoId INTEGER NOT NULL,
+description VARCHAR(40),
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT cityId_PK PRIMARY KEY (cityId),
+CONSTRAINT dptoId_FK FOREIGN KEY (dptoId) REFERENCES deparments(dptoId)
+);
+
+CREATE TABLE entidad(
+entityId SERIAL,
+creditTypeId INTEGER NOT NULL,
+name VARCHAR(30) NOT NULL,
+logo VARCHAR(100) DEFAULT NULL,
+interes INTEGER NOT NULL,
+discountPerDay INTEGER NOT NULL,
+moraPorDia INTEGER NOT NULL,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT entityId_PK PRIMARY KEY(entityId),
+CONSTRAINT creditType_FK FOREIGN KEY (creditTypeId) REFERENCES credit_type(crediTypeId)
 );
 
 CREATE TABLE fajas(
@@ -70,18 +95,7 @@ CONSTRAINT faja_PK PRIMARY KEY (fajaId),
 CONSTRAINT desc_CHK CHECK (description ~ '^[^0-9]*$')
 );
 
-CREATE TABLE cities(
-cityId SERIAL,
-dptoId INTEGER NOT NULL,
-description VARCHAR(40),
-active BOOLEAN DEFAULT TRUE,
-createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-updatedAt TIMESTAMP WITH TIME ZONE,
-CONSTRAINT cityId_PK PRIMARY KEY (cityId),
-CONSTRAINT dptoId_FK FOREIGN KEY (dptoId) REFERENCES deparments(dptoId)
-);
-
-CREATE TABLE companies_data(
+CREATE TABLE dato_empresa(
 compDataId SERIAL,
 fajaRepOneId INTEGER NOT NULL,
 fajaRepTwoId INTEGER DEFAULT NULL,
@@ -98,7 +112,24 @@ CONSTRAINT fajaRepOne_FK FOREIGN KEY (fajaRepOneId) REFERENCES fajas(fajaId),
 CONSTRAINT fajaRepTwo_FK FOREIGN KEY (fajaRepTwoId) REFERENCES fajas(fajaId)
 );
 
-CREATE TABLE client_data(
+CREATE TABLE parametro(
+parametroId SERIAL,
+requirementId INTEGER NOT NULL,
+entityId INTEGER NOT NULL,
+minimo INTEGER,
+maximo INTEGER,
+respTime INTEGER,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT parametroId_PK PRIMARY KEY(parametroId),
+CONSTRAINT requirementId_FK FOREIGN KEY (requirementId) REFERENCES requirements(requirementId),
+CONSTRAINT entity_FK FOREIGN KEY (entityId) REFERENCES entity (entityId),
+CONSTRAINT min_CHK CHECK (minimo > 0),
+CONSTRAINT max_CHK CHECK (maximo > 0)
+);
+
+CREATE TABLE dato_cliente(
 clientId SERIAL,
 cityId INTEGER NOT NULL,
 fajaId INTEGER NOT NULL,
@@ -119,7 +150,21 @@ CONSTRAINT clientType_FK FOREIGN KEY (clientTypeId) REFERENCES client_types(clie
 CONSTRAINT comptipe_FK FOREIGN KEY (compDataId) REFERENCES companies_data(compDataId)
 );
 
-CREATE TABLE users(
+CREATE TABLE referencia_personal(
+persRefId SERIAL,
+clientId INTEGER NOT NULL,
+refName1 varchar(30) NOT NULL,
+phoneRef1 varchar(30) NOT NULL,
+refName2 varchar(30) NOT NULL,
+phoneRef2 varchar(30) NOT NULL,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT persRef_PK PRIMARY KEY(persRefId),
+CONSTRAINT client_FK FOREIGN KEY (clientId) REFERENCES client_data(clientId),
+)
+
+CREATE TABLE usuario(
 userId SERIAL,
 roleId INTEGER NOT NULL DEFAULT 1,
 clientId INTEGER DEFAULT NULL,
@@ -137,4 +182,69 @@ CONSTRAINT roleId_FK FOREIGN KEY (roleId) REFERENCES roles(roleId),
 CONSTRAINT clientId_FK FOREIGN KEY (clientId) REFERENCES client_data(clientId),
 CONSTRAINT usermail_UC UNIQUE (usermail),
 CONSTRAINT alias_UC UNIQUE (alias)
+);
+
+CREATE TABLE trabajo_cliente(
+cliWorkId SERIAL,
+clientId INTEGER NOT NULL,
+cityId INTEGER NOT NULL,
+workplace VARCHAR(60) NOT NULL,
+workAddress VARCHAR(60) NOT NULL,
+workPosition VARCHAR(30) NOT NULL,
+seniority VARCHAR(5) NOT NULL,
+salary INTEGER NOT NULL,
+contact VARCHAR(20) NOT NULL,
+phone VARCHAR(20) NOT NULL,
+lat VARCHAR(50) DEFAULT NULL,
+lng VARCHAR(50) DEFAULT NULL,
+document VARCHAR(100) NOT NULL,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT cliWorkId_PK PRIMARY KEY(cliWorkId),
+CONSTRAINT CitiId_FK FOREIGN KEY (cityId) REFERENCES cities(cityId),
+CONSTRAINT clientId_FK FOREIGN KEY(clientId) REFERENCES client_data(clientId)
+);
+
+CREATE TABLE solicitud(
+reqId SERIAL,
+clientId INTEGER NOT NULL,
+crediTypeId INTEGER NOT NULL,
+comRefId INTEGER NOT NULL,
+refId INTEGER NOT NULL,
+entityId INTEGER NOT NULL,
+state VARCHAR(100),
+getDate TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+monto INTEGER NOT NULL,
+plazo INTEGER NOT NULL,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT reqId_PK PRIMARY KEY(reqId),
+CONSTRAINT cliId_FK FOREIGN KEY(clientId) REFERENCES dato_cliente(clientId)
+CONSTRAINT crediType_FK FOREIGN KEY (crediTypeId) REFERENCES tipo_credito(crediTypeId),
+CONSTRAINT comRef_FK FOREIGN KEY (comRefId) REFERENCES referencia_comercial(comRefId),
+CONSTRAINT fefId_FK FOREIGN KEY (refId) REFERENCES referencia_personal(persRefId),
+CONSTRAINT entityId_FK FOREIGN KEY (entityId) REFERENCES entidad(entityId),
+CONSTRAINT monto_CHK CHECK(monto > 0),
+CONSTRAINT plazo_CHK CHECK(plazo > 0)
+);
+
+CREATE TABLE prestamo(
+prestamoId SERIAL,
+solicitudId INTEGER NOT NULL,
+entidadId INTEGER NOT NULL,
+fecha_vencimiento DATE,
+interes_mensual INTEGER,
+descuento_mes INTEGER,
+mora_dia INTEGER,
+active BOOLEAN DEFAULT TRUE,
+createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+updatedAt TIMESTAMP WITH TIME ZONE,
+CONSTRAINT prestamoId_PK PRIMARY KEY(prestamoId),
+CONSTRAINT solicitud_FK FOREIGN KEY (solicitudId) REFERENCES solicitud(reqId),
+CONSTRAINT entidad_FK FOREIGN KEY (entidadId) REFERENCES entidad(entityId),
+CONSTRAINT interes_CHK CHECK(interes_mensual > 0),
+CONSTRAINT descuento_CHK CHECK(descuento_mes > 0),
+CONSTRAINT mora_CHK CHECK(mora_dia > 0)
 );

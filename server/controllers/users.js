@@ -100,7 +100,9 @@ function login(req, res) {
             return res.status(200).json({
                 ok: true,
                 user,
-                token: jwt.createToken(user)
+                token: jwt.createToken(user),
+                id: user.userid,
+                menu: getMenu()
             })
         } else {
             return res.status(401).json({
@@ -115,6 +117,23 @@ function login(req, res) {
             err
         });
     })
+}
+
+function getMenu() {
+    var menu = [{
+        titulo: 'Principal',
+        icono: 'fa fa-dashboard',
+        submenu: [
+            { titulo: 'Dashboard', url: '/dashboard' },
+
+        ]
+    }, {
+        titulo: 'Mantenimientos',
+        icono: 'fa fa-wrench',
+        submenu: [
+            { titulo: 'Perfil', url: '/profile' }
+        ]
+    }];
 }
 
 module.exports = {
