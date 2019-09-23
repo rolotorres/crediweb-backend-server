@@ -1,4 +1,4 @@
-const fajas = require('../models').faja;
+const fajas = require('../models').fajas;
 
 // Obtener todas las fajas
 function getAll(req, res) {

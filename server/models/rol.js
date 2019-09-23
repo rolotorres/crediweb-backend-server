@@ -1,18 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
-    const dpto = sequelize.define('department', {
-        dptoid: {
+    const rol = sequelize.define('role', {
+        rolid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        dptoname: DataTypes.STRING,
-        active: DataTypes.BOOLEAN,
+        tiporol: DataTypes.STRING,
+        descripcion: DataTypes.STRING,
+        activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'deparments'
+        tableName: 'rol'
     });
 
-    return dpto;
+    return rol;
 }

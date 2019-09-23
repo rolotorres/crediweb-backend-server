@@ -1,11 +1,11 @@
-const dpto = require('../models').department;
+const tipocliente = require('../models').tipcli;
 
-// Obtenemos todos los departamentos
+// Obtenemos todos los tipos de clientes
 function getAll(req, res) {
-    dpto.findAll().then(department => {
+    tipocliente.findAll().then(tipo_cliente => {
         return res.status(200).json({
             ok: true,
-            department
+            tipo_cliente
         });
     }).catch(err => {
         return res.status(500).json({
@@ -14,12 +14,12 @@ function getAll(req, res) {
     });
 }
 
-// Creamos un nuevo departamento
+// Creamos un nuevo tipo de cliente
 function create(req, res) {
-    dpto.create(req.body).then(department => {
+    tipocliente.create(req.body).then(tipo_cliente => {
         return res.status(201).json({
             ok: true,
-            department
+            tipo_cliente
         });
     }).catch(err => {
         return res.status(500).json({
@@ -38,11 +38,11 @@ function deleted(req, res) {
         active: false
     };
 
-    dpto.findByPk(id).then(dpto => {
-        dpto.update(cambiaEstado).then(() => {
+    tipocliente.findByPk(id).then(tipo_cliente => {
+        tipo_cliente.update(cambiaEstado).then(() => {
             return res.status(200).json({
                 ok: true,
-                dpto
+                tipo_cliente
             });
         }).catch(err => {
             return res.status(500).json({

@@ -4,11 +4,11 @@ const file = require('./files');
 const user = require('./users');
 const citi = require('./cities');
 const suc = require('./sucursales');
-const dpto = require('./deparments');
+const dpto = require('./departamentos');
 const clidata = require('./clientData');
-const clitype = require('./clienTypes');
 const cliwork = require('./clientWork');
-const creditype = require('./crediType');
+const tipcli = require('./TiposClientes');
+const tipcred = require('./tiposCreditos');
 const compdata = require('./companiesData');
 const comptype = require('./companiesTypes');
 
@@ -20,10 +20,10 @@ module.exports = {
     faja,
     file,
     user,
+    tipcli,
     clidata,
-    clitype,
+    tipcred,
     cliwork,
     compdata,
-    comptype,
-    creditype
+    comptype
 }

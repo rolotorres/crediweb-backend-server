@@ -17,7 +17,22 @@ function getAll(req, res) {
 
 // Creamos un nuevo usuario
 function create(req, res) {
-    users.create(req.body).then(usuario => {
+    var body = req.body;
+
+    var nombrecompleto = body.nombrecompleto;
+
+    var userData = {
+        rolid: body.rolid,
+        nombre: nombrecompleto.split(' ').slice(0, -1).join(' '),
+        apellido: nombrecompleto.split(' ').slice(-1).join(' '),
+        username: nombrecompleto.split(' ').slice(0, -1).join(' ').toLowerCase() + '.' + nombrecompleto.split(' ').slice(-1).join(' ').toLowerCase(),
+        pasword: body.pasword,
+        usermail: body.usermail
+    }
+
+    console.log(userData);
+
+    users.create(userData).then(usuario => {
         return res.status(201).json({
             ok: true,
             usuario

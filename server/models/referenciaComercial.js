@@ -1,19 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
-    const creditype = sequelize.define('creditype', {
-        creditypeid: {
+    const refCom = sequelize.define('refcom', {
+        refcomid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        description: DataTypes.STRING,
-        active: DataTypes.BOOLEAN,
+        nombre: DataTypes.STRING,
+        contacto: DataTypes.STRING,
+        activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
-
     }, {
         schema: 'public',
-        tableName: 'credit_type'
+        tableName: 'referencia_comercial'
     });
 
-    return creditype;
+    return refCom;
 }

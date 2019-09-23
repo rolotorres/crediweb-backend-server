@@ -1,17 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-    const faja = sequelize.define('fajas', {
-        fajaid: {
+    const dpto = sequelize.define('departamento', {
+        dptoid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        descripcion: DataTypes.STRING,
+        nombredpto: DataTypes.STRING,
+        activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'faja'
+        tableName: 'departamento'
     });
 
-    return faja;
+    return dpto;
 }

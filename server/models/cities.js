@@ -1,22 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
     const citi = sequelize.define('city', {
-        cityid: {
+        ciudadid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         dptoid: DataTypes.INTEGER,
-        description: DataTypes.STRING,
+        descripcion: DataTypes.STRING,
         active: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'cities'
+        tableName: 'ciudad'
     });
 
-    citi.associate = function(models){
-        citi.belongsTo(models.department, {
+    citi.associate = function(models) {
+        citi.belongsTo(models.departamento, {
             foreignKey: 'dptoid',
             targetKey: 'dptoid',
             as: 'dptos'

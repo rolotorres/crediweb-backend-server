@@ -1,11 +1,11 @@
-const clitype = require('../models').clientype;
+const dpto = require('../models').departamento;
 
-// Obtenemos todos los tipos de clientes
+// Obtenemos todos los departamentos
 function getAll(req, res) {
-    clitype.findAll().then(clitypes => {
+    dpto.findAll().then(departamento => {
         return res.status(200).json({
             ok: true,
-            clitypes
+            departamento
         });
     }).catch(err => {
         return res.status(500).json({
@@ -14,12 +14,12 @@ function getAll(req, res) {
     });
 }
 
-// Creamos un nuevo tipo de cliente
+// Creamos un nuevo departamento
 function create(req, res) {
-    clitype.create(req.body).then(clitype => {
+    dpto.create(req.body).then(departamento => {
         return res.status(201).json({
             ok: true,
-            clitype
+            departamento
         });
     }).catch(err => {
         return res.status(500).json({
@@ -38,11 +38,11 @@ function deleted(req, res) {
         active: false
     };
 
-    clitype.findByPk(id).then(clitype => {
-        clitype.update(cambiaEstado).then(() => {
+    dpto.findByPk(id).then(departamento => {
+        departamento.update(cambiaEstado).then(() => {
             return res.status(200).json({
                 ok: true,
-                clitype
+                departamento
             });
         }).catch(err => {
             return res.status(500).json({

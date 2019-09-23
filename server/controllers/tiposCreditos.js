@@ -1,8 +1,8 @@
-const crediType = require('../models').creditype;
+const tipcred = require('../models').tipcred;
 
 // Obtenemos todos los tipos de creditos
 function getAll(req, res) {
-    crediType.findAll().then(creditype => {
+    tipcred.findAll().then(creditype => {
         return res.status(200).json({
             ok: true,
             creditype
@@ -16,7 +16,7 @@ function getAll(req, res) {
 
 // Creamos un nuevo tipo de credito
 function create(req, res) {
-    crediType.create(req.body).then(creditype => {
+    tipcred.create(req.body).then(creditype => {
         return res.status(201).json({
             ok: true,
             creditype

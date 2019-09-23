@@ -32,28 +32,28 @@ const fileRoutes = require('./server/routes/files');
 const cityRoutes = require('./server/routes/cities');
 const usersRoutes = require('./server/routes/users');
 const sucRoutes = require('./server/routes/sucursales');
-const dptoRoutes = require('./server/routes/deparments');
 const clientRoutes = require('./server/routes/clientData');
-const clitypeRoutes = require('./server/routes/clienTypes');
+const dptoRoutes = require('./server/routes/departamentos');
 const cliworkRoutes = require('./server/routes/clientWork');
-const creditypeRoutes = require('./server/routes/crediType');
+const tipcliRoutes = require('./server/routes/tiposClientes');
+const tipCredRoutes = require('./server/routes/tiposCreditos');
 const comdataRoutes = require('./server/routes/companiesData');
 const comtypeRoutes = require('./server/routes/companiesTypes');
 
 
 // Rutas
-app.use('/creditype', creditypeRoutes);
 app.use('/comptype', comtypeRoutes);
 app.use('/compdata', comdataRoutes);
-app.use('/department', dptoRoutes);
+app.use('/tipcred', tipCredRoutes);
 app.use('/cliwork', cliworkRoutes);
-app.use('/clitype', clitypeRoutes);
 app.use('/clidata', clientRoutes);
+app.use('/tipcli', tipcliRoutes);
 app.use('/sucursal', sucRoutes);
 app.use('/users', usersRoutes);
 app.use('/city', cityRoutes);
 app.use('/file', fileRoutes);
 app.use('/faja', fajaRoutes);
+app.use('/dpto', dptoRoutes);
 app.use('/rol', rolRoutes);
 app.use('/', appRoutes);
 

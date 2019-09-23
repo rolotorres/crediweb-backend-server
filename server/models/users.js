@@ -1,25 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
     const users = sequelize.define('user', {
-        userid: {
+        usuarioid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        roleid: DataTypes.INTEGER,
-        clientid: DataTypes.INTEGER,
-        sucursalid: DataTypes.INTEGER,
+        rolid: DataTypes.INTEGER,
+        datoclienteid: DataTypes.INTEGER,
+        nombre: DataTypes.STRING,
+        apellido: DataTypes.STRING,
         username: DataTypes.STRING,
-        userlastname: DataTypes.STRING,
-        usermail: DataTypes.STRING,
-        alias: DataTypes.STRING,
         pasword: DataTypes.STRING,
+        usermail: DataTypes.STRING,
         avatar: DataTypes.STRING,
         active: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'users'
+        tableName: 'usuario'
     });
 
     users.associate = function(models) {
@@ -32,17 +31,9 @@ module.exports = (sequelize, DataTypes) => {
 
     users.associate = function(models) {
         users.belongsTo(models.clidata, {
-            foreignKey: 'clientid',
-            targetKey: 'clientid',
-            as: 'clientData'
-        });
-    }
-
-    users.associate = function(models) {
-        users.belongsTo(models.suc, {
-            foreignKey: 'sucursalid',
-            targetKey: 'sucursalid',
-            as: 'sucursal'
+            foreignKey: 'datoclienteid',
+            targetKey: 'datoclienteid',
+            as: 'dato_cliente'
         });
     }
 

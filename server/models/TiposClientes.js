@@ -1,17 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-    const faja = sequelize.define('fajas', {
-        fajaid: {
+    const tipocliente = sequelize.define('tipcli', {
+        tipoclienteid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         descripcion: DataTypes.STRING,
+        activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'faja'
+        tableName: 'tipo_cliente'
     });
 
-    return faja;
+    return tipocliente;
 }

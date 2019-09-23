@@ -24,21 +24,21 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'client_work'
     });
 
-    clientwork.associate = function(models) {
-        clientwork.belongsTo(models.clidata, {
-            foreignKey: 'clientid',
-            targetKey: 'clientid',
-            as: 'clientype'
-        });
-    };
+    // clientwork.associate = function(models) {
+    //     clientwork.belongsTo(models.clidata, {
+    //         foreignKey: 'clientid',
+    //         targetKey: 'clientid',
+    //         as: 'clientype'
+    //     });
+    // };
 
-    clientwork.associate = function(models) {
-        clientwork.belongsTo(models.city, {
-            foreignKey: 'cityid',
-            targetKey: 'cityid',
-            as: 'workCity'
-        });
-    };
+    // clientwork.associate = function(models) {
+    //     clientwork.belongsTo(models.city, {
+    //         foreignKey: 'cityid',
+    //         targetKey: 'cityid',
+    //         as: 'workCity'
+    //     });
+    // };
 
     return clientwork;
 }

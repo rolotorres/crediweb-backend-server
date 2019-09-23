@@ -1,11 +1,11 @@
-const credtype = require('../controllers').creditype;
+const tipcred = require('../controllers').tipcred;
 const express = require('express');
 
 const app = express();
 
-app.get('/', credtype.getAll);
+app.get('/', tipcred.getAll);
 
-app.post('/', credtype.create);
+app.post('/', tipcred.create);
 
 // app.delete('/:id', fajaController.deleted);
 

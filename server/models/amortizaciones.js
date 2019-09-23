@@ -1,18 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-    const clienttype = sequelize.define('clientype', {
-        clienttypeid: {
+    const amortizacion = sequelize.define('amortizacion', {
+        amortizacionid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        description: DataTypes.STRING,
-        active: DataTypes.BOOLEAN,
+        detalle: DataTypes.STRING,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'client_types'
+        tableName: 'amortizacion'
     });
 
-    return clienttype;
+    return amortizacion;
 }

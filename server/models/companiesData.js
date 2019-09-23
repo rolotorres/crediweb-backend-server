@@ -1,30 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
     const comdata = sequelize.define('compdata', {
-        compdataid: {
+        datoempresaid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        comptypeid: DataTypes.INTEGER,
+        nombreempresa: DataTypes.STRING,
         ruc: DataTypes.STRING,
-        compname: DataTypes.STRING,
-        representative: DataTypes.STRING,
-        compemail: DataTypes.STRING,
+        nombrerepresentante1: DataTypes.STRING,
+        cirepresentante1: DataTypes.INTEGER,
+        nombrerepresentante2: DataTypes.STRING,
+        cirepresentante2: DataTypes.INTEGER,
+        antiguedad: DataTypes.STRING,
         active: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
         schema: 'public',
-        tableName: 'companies_data'
+        tableName: 'dato_empresa'
     });
-
-    comdata.associate = function(models){
-        comdata.belongsTo(models.comtype, {
-            foreignKey: 'comptypeid',
-            targetKey: 'comptypeid',
-            as: 'compType'
-        });
-    }
 
     return comdata;
 }

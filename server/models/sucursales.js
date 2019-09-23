@@ -20,21 +20,21 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'sucursales'
     });
 
-    sucursal.associate = function(models) {
-        sucursal.belongsTo(models.compdata, {
-            foreignKey: 'compdataid',
-            targetKey: 'compdataid',
-            as: 'compData'
-        });
-    }
+    // sucursal.associate = function(models) {
+    //     sucursal.belongsTo(models.compdata, {
+    //         foreignKey: 'compdataid',
+    //         targetKey: 'compdataid',
+    //         as: 'compData'
+    //     });
+    // }
 
-    sucursal.associate = function(models) {
-        sucursal.belongsTo(models.city, {
-            foreignKey: 'cityid',
-            targetKey: 'cityid',
-            as: 'city'
-        });
-    }
+    // sucursal.associate = function(models) {
+    //     sucursal.belongsTo(models.city, {
+    //         foreignKey: 'cityid',
+    //         targetKey: 'cityid',
+    //         as: 'city'
+    //     });
+    // }
 
     return sucursal;
 }
